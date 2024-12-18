@@ -1,10 +1,7 @@
 import React, { useState } from 'react';
-import { Table, Layout, Input, Card, Row, Col } from 'antd';
 import ReactECharts from 'echarts-for-react';
 import { ResizableBox } from 'react-resizable';
 import 'react-resizable/css/styles.css';
-
-const { Header, Content, Footer } = Layout;
 
 const Map = () => {
   const [filterText, setFilterText] = useState('');
@@ -70,73 +67,81 @@ const Map = () => {
     ],
   };
 
-  // Table Columns
-  const columns = [
-    { title: 'Date', dataIndex: 'Date', key: 'Date' },
-    { title: 'Sales', dataIndex: 'Sales', key: 'Sales' },
-    { title: 'Region', dataIndex: 'Region', key: 'Region' },
-  ];
-
   return (
-    <Layout style={{ minHeight: '100vh' }}>
-      <Header style={{ background: '#001529', color: 'white' }}>
-        <h1 style={{ textAlign: 'center' }}>Sales Dashboard</h1>
-      </Header>
-      <Content style={{ padding: '20px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: 'calc(100vh - 64px)' }}>
-        <Row gutter={16} style={{ flex: 1 }}>
-          {/* Table */}
-          <Col span={12}>
-            <ResizableBox width="100%" height={300} axis="xy" minConstraints={[200, 200]}>
-              <Card title="Sales Data Table" style={{ height: '100%' }}>
-                <Input
-                  placeholder="Filter by region"
-                  value={filterText}
-                  onChange={e => setFilterText(e.target.value)}
-                  style={{ marginBottom: 10 }}
-                />
-                <Table
-                  dataSource={filteredData}
-                  columns={columns}
-                  rowKey="Date"
-                  pagination={false}
-                  scroll={{ y: 240 }} // Scrollable Table
-                />
-              </Card>
-            </ResizableBox>
-          </Col>
+    <div style={{ minHeight: '100vh', backgroundColor: '#f8f9fa' }}>
+      {/* Header */}
+      <div style={{ backgroundColor: '#001529', color: 'white', textAlign: 'center', padding: '10px 0' }}>
+        <h1>Sales Dashboard</h1>
+      </div>
 
-          {/* Bar Chart */}
-          <Col span={12}>
-            <ResizableBox width="100%" height={300} axis="xy" minConstraints={[200, 200]}>
-              <Card title="Sales by Region (Bar Chart)" style={{ height: '100%' }}>
-                <ReactECharts option={barChartOptions} />
-              </Card>
-            </ResizableBox>
-          </Col>
-        </Row>
+      {/* Content */}
+      <div style={{ padding: '20px', display: 'flex', flexDirection: 'column', height: 'calc(100vh - 64px)' }}>
+        <div style={{ display: 'flex', gap: '20px', flex: 1 }}>
+          {/* Table Section */}
+          <ResizableBox width={500} height={300} axis="xy" minConstraints={[200, 200]} style={{ flex: 1 }}>
+            <div style={{ border: '1px solid #ddd', borderRadius: '5px', padding: '10px', background: '#fff', height: '100%' }}>
+              <h2>Sales Data Table</h2>
+              <input
+                type="text"
+                placeholder="Filter by region"
+                value={filterText}
+                onChange={e => setFilterText(e.target.value)}
+                style={{ width: '100%', marginBottom: '10px', padding: '5px' }}
+              />
+              <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                <thead>
+                  <tr>
+                    <th style={{ border: '1px solid #ddd', padding: '8px' }}>Date</th>
+                    <th style={{ border: '1px solid #ddd', padding: '8px' }}>Sales</th>
+                    <th style={{ border: '1px solid #ddd', padding: '8px' }}>Region</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {filteredData.map(item => (
+                    <tr key={item.Date}>
+                      <td style={{ border: '1px solid #ddd', padding: '8px' }}>{item.Date}</td>
+                      <td style={{ border: '1px solid #ddd', padding: '8px' }}>{item.Sales}</td>
+                      <td style={{ border: '1px solid #ddd', padding: '8px' }}>{item.Region}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </ResizableBox>
 
-        <Row gutter={16} style={{ flex: 1, marginTop: 20 }}>
-          {/* Gauge Chart */}
-          <Col span={12}>
-            <ResizableBox width="100%" height={300} axis="xy" minConstraints={[200, 200]}>
-              <Card title="Performance Gauge" style={{ height: '100%' }}>
-                <ReactECharts option={gaugeChartOptions} />
-              </Card>
-            </ResizableBox>
-          </Col>
+          {/* Bar Chart Section */}
+          <ResizableBox width={500} height={300} axis="xy" minConstraints={[200, 200]} style={{ flex: 1 }}>
+            <div style={{ border: '1px solid #ddd', borderRadius: '5px', padding: '10px', background: '#fff', height: '100%' }}>
+              <h2>Sales by Region (Bar Chart)</h2>
+              <ReactECharts option={barChartOptions} style={{ height: '90%' }} />
+            </div>
+          </ResizableBox>
+        </div>
 
-          {/* Radar Chart */}
-          <Col span={12}>
-            <ResizableBox width="100%" height={300} axis="xy" minConstraints={[200, 200]}>
-              <Card title="Sales Metrics (Radar Chart)" style={{ height: '100%' }}>
-                <ReactECharts option={radarChartOptions} />
-              </Card>
-            </ResizableBox>
-          </Col>
-        </Row>
-      </Content>
-      <Footer style={{ textAlign: 'center' }}>Sales Dashboard ©2024</Footer>
-    </Layout>
+        <div style={{ display: 'flex', gap: '20px', flex: 1, marginTop: '20px' }}>
+          {/* Gauge Chart Section */}
+          <ResizableBox width={500} height={300} axis="xy" minConstraints={[200, 200]} style={{ flex: 1 }}>
+            <div style={{ border: '1px solid #ddd', borderRadius: '5px', padding: '10px', background: '#fff', height: '100%' }}>
+              <h2>Performance Gauge</h2>
+              <ReactECharts option={gaugeChartOptions} style={{ height: '90%' }} />
+            </div>
+          </ResizableBox>
+
+          {/* Radar Chart Section */}
+          <ResizableBox width={500} height={300} axis="xy" minConstraints={[200, 200]} style={{ flex: 1 }}>
+            <div style={{ border: '1px solid #ddd', borderRadius: '5px', padding: '10px', background: '#fff', height: '100%' }}>
+              <h2>Sales Metrics (Radar Chart)</h2>
+              <ReactECharts option={radarChartOptions} style={{ height: '90%' }} />
+            </div>
+          </ResizableBox>
+        </div>
+      </div>
+
+      {/* Footer */}
+      <div style={{ backgroundColor: '#001529', color: 'white', textAlign: 'center', padding: '10px 0' }}>
+        <p>Sales Dashboard ©2024</p>
+      </div>
+    </div>
   );
 };
 
