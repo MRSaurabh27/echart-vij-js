@@ -1,3 +1,61 @@
+/* Container for the entire app */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: Arial, sans-serif;
+  margin-top: 20px;
+}
+
+/* Styling for each box */
+.box {
+  width: 80%;
+  margin: 20px 0;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: #f9f9f9;
+  text-align: center;
+}
+
+/* Header inside each box */
+.box h2 {
+  margin-bottom: 15px;
+  color: #333;
+}
+
+/* Specific style for Pie Chart box to make it smaller */
+.pie-chart-box {
+  width: 45%; /* Reduced width of Pie Chart box */
+  margin: 20px auto; /* Center the box horizontally */
+  padding: 15px;
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 768px) {
+  .box {
+    width: 95%;
+  }
+
+  .pie-chart-box {
+    width: 70%; /* Adjust Pie Chart box for smaller screens */
+  }
+}
+
+/* Styling for specific components' sections */
+.flowchart-box, .erd-box, .class-diagram-box, .state-diagram-box, .map-box, .viz-box {
+  width: 80%; /* Default box size */
+  margin: 20px auto;
+  padding: 15px;
+}
+
+/* Adjust layout for Map and Viz sections */
+.map-box, .viz-box {
+  width: 70%; /* Slightly reduced width for Map and Viz components */
+}
+
+/* For App header and logo styling */
 .App {
   text-align: center;
 }
